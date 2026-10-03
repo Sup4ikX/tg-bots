@@ -325,7 +325,7 @@ def parse_request(text):
 def menu_keyboard():
     """Inline keyboard for the three main actions."""
     return {"inline_keyboard": [[{"text": label, "callback_data": data}]
-                                for data, label in MENU_BUTTONS]]}
+                                for data, label in MENU_BUTTONS]}
 
 
 def phone_button(phone):
