@@ -1,0 +1,22 @@
+name: Keep bot awake
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping deployed bot health endpoint
+        env:
+          BOT_HEALTH_URL: ${{ secrets.BOT_HEALTH_URL }}
+        run: |
+          if [ -z "$BOT_HEALTH_URL" ]; then
+            echo "BOT_HEALTH_URL is not set — skipping"; exit 0
+          fi
+          curl -fsS --max-time 20 "$BOT_HEALTH_URL"
